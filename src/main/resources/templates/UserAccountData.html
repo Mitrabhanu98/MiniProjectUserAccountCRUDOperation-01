@@ -61,6 +61,14 @@
 					<td><a href="#" class="btn btn-primary">Edit</a></td>
 					<td><a href="#" class="btn btn-danger">Delete</a></td>
 
+					<span th:switch="${localvar.activeSw}">
+						<i th:case="Y" class="fas fa-check red-text">
+							<td><a href="#" class="btn btn-danger">De-Activate</a></td>
+						</i>
+						<i th:case="N" class="fas fa-times orange-text">
+							<td><a href="#" class="btn btn-success">Activate</a></td>
+						</i>
+					</span>
 
 				</tr>
 
