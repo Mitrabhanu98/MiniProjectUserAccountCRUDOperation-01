@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import in.mitrabhanu.model.UserAccount;
 import in.mitrabhanu.service.UserAccountService;
@@ -31,6 +32,7 @@ public class UserAccountController {
 		System.out.println(saveOrUpdateUserAcc);
 		
 		model.addAttribute("message", saveOrUpdateUserAcc);
+		model.addAttribute("user", new UserAccount());
 		return "index";
 	}
 	
@@ -41,23 +43,42 @@ public class UserAccountController {
 		return "UserAccountData";
 	}
 	
-	public String editUser(Integer userId, Model model) {
-		return null;
+	@GetMapping("/edit")
+	public String editUser(@RequestParam("userId") Integer userId, Model model) {
+		
+		UserAccount userAcc = service.getUserAcc(userId);
+		
+		model.addAttribute("user", userAcc);
+		
+		return "index";
 	}
 	
 	@GetMapping("/delete")
-	public String deleteUser(Integer userId, Model model) {
+	public String deleteUser(@RequestParam("userId") Integer userId, Model model) {
 		
 		service.delete(userId);
 		
-		List<UserAccount> allUserAcc = service.getAllUserAcc();
+		String message = "User '"+userId+"' is Deleted Successfully.";
 		
-		model.addAttribute("allUserAcc", allUserAcc);
-
-		return "UserAccountData";
+		model.addAttribute("message", message);
+		
+		return "forward:/users";
 	}
 	
-	public String changeAccStatus(Integer userId, String status) {
-		return null;
+	@GetMapping("/update")
+	public String changeAccStatus(@RequestParam("userId") Integer userId,
+			                      @RequestParam("status") String status, Model model
+			                      ) {
+		
+		service.updateUserAccStatus(userId, status);
+		
+		if("Y".equals(status)) {
+		    model.addAttribute("message", "Status is Activated");	
+		}
+		else {
+			model.addAttribute("message", "Status is De-Activated");
+		}
+		
+		return "forward:/users";
 	}
 }

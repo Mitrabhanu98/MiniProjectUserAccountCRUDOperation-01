@@ -40,29 +40,31 @@
 			<table>
 				<tr>
 					<td>FullName : </td>
-					<td><input type="text" th:field="*{userName}" /> </td>
+					<td><input type="text" th:field="*{userName}" required/> </td>
+					<td><input type="hidden" th:field="*{userId}" /> </td>
+					<td><input type="hidden" th:field="*{activeSw}" /> </td>
 				</tr>
 				<tr>
 					<td>E-Mail : </td>
-					<td><input type="email" th:field="*{email}" /> </td>
+					<td><input type="email" th:field="*{email}" required/> </td>
 				</tr>
 				<tr>
 					<td>Ph.No : </td>
-					<td><input type="number" th:field="*{mob}" /> </td>
+					<td><input type="number" th:field="*{mob}" required/> </td>
 				</tr>
 				<tr>
 					<td>SSN : </td>
-					<td><input type="number" th:field="*{ssn}" /> </td>
+					<td><input type="number" th:field="*{ssn}" required/> </td>
 				</tr>
 				<tr>
 					<td>Gender : </td>
-					<td><input type="radio" th:field="*{gen}" value="M" />Male
+					<td><input type="radio" th:field="*{gen}" value="M" required/>Male
 						<input type="radio" th:field="*{gen}" value="F" />Female
 					</td>
 				</tr>
 				<tr>
 					<td>DOB : </td>
-					<td><input type="date" th:field="*{dob}" /> </td>
+					<td><input type="date" th:field="*{dob}" required/> </td>
 				</tr>
 			</table>
 

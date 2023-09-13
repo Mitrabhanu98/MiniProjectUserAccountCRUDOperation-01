@@ -4,10 +4,11 @@ import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,19 +21,24 @@ import lombok.NoArgsConstructor;
 public class UserAccount {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private Integer userId;
 	private String userName;
 	private String email;
 	private Long mob;
 	private Character gen;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dob;
+	
 	private Long ssn;
 	private String activeSw = "Y";
 	
 	@CreationTimestamp
+	@Column(updatable = false)
 	private LocalDate createDate;
 	
 	@UpdateTimestamp
+	@Column(insertable = false)
 	private LocalDate updateDate;
 }
